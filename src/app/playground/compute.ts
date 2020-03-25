@@ -1,4 +1,4 @@
-export function compute(x) {
+export default function compute(x) {
   if (x < 0) {
     return 0;
   }
