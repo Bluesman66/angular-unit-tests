@@ -5,7 +5,7 @@ import { Component, Output, EventEmitter } from "@angular/core";
 	selector: "app-counter",
 	template: ` Counter: {{ counter }} `
 })
-export default class CounterComponent {
+export class CounterComponent {
 	counter = 0;
 	public form: FormGroup;
 

@@ -1,4 +1,4 @@
-import CounterComponent from "./counter.component";
+import { CounterComponent } from "./counter.component";
 import { FormBuilder } from "@angular/forms";
 
 describe("CounterComponent", () => {
