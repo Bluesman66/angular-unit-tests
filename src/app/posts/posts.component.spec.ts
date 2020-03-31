@@ -1,8 +1,12 @@
-import { PostsService } from "./posts.service";
-import { PostsComponent } from "./posts.component";
 import { EMPTY, of, throwError } from "rxjs";
 
-describe("PostComponent", () => {
+import { HttpClientModule } from "@angular/common/http";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+
+import { PostsComponent } from "./posts.component";
+import { PostsService } from "./posts.service";
+
+describe("PostsComponent: unit tests", () => {
 	let component: PostsComponent;
 	let service: PostsService;
 
@@ -52,7 +56,7 @@ describe("PostComponent", () => {
 
 	it("should remove post if user confirmed", () => {
 		const spy = spyOn(service, "remove").and.returnValue(EMPTY);
-		spyOn(window, 'confirm').and.returnValue(true)
+		spyOn(window, "confirm").and.returnValue(true);
 
 		component.delete(10);
 
@@ -61,10 +65,37 @@ describe("PostComponent", () => {
 
 	it("should NOT remove post if user NOT confirmed", () => {
 		const spy = spyOn(service, "remove").and.returnValue(EMPTY);
-		spyOn(window, 'confirm').and.returnValue(false)
+		spyOn(window, "confirm").and.returnValue(false);
 
 		component.delete(10);
 
 		expect(spy).not.toHaveBeenCalledWith(10);
+	});
+});
+
+describe("PostComponent: integration tests", () => {
+	let fixture: ComponentFixture<PostsComponent>;
+	let component: PostsComponent;
+	let service: PostsService;
+
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			declarations: [PostsComponent],
+			providers: [PostsService],
+			imports: [HttpClientModule]
+		});
+
+		fixture = TestBed.createComponent(PostsComponent);
+		component = fixture.componentInstance;
+		service = TestBed.get(PostsService);
+	});
+
+	it("should fetch posts on ngOnInit", () => {
+		const posts = [1, 2, 3];
+		spyOn(service, "fetch").and.returnValue(of(posts));
+
+		fixture.detectChanges();
+
+		expect(component.posts).toEqual(posts);
 	});
 });
