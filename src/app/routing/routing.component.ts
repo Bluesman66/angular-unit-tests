@@ -11,7 +11,7 @@ export class RoutingComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.route.params.subscribe(params => {
-			if (params.id === "0") {
+			if (params["id"] === "0") {
 				this.router.navigate(["/404"]);
 			}
 		});

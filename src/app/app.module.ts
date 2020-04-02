@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { CounterComponent } from './counter/counter.component';
 import { TestCounterComponent } from './test-counter/test-counter.component';
 import { RoutingComponent } from './routing/routing.component';
+import { RouterOutlet } from '@angular/router';
 
 @NgModule({
 	declarations: [
     AppComponent,
     CounterComponent,
     TestCounterComponent,
-    RoutingComponent
+    RoutingComponent,
+    RouterOutlet
   ],
 	imports: [
     BrowserModule,

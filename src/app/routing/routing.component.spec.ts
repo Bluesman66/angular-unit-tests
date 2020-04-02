@@ -1,9 +1,11 @@
-import { Observable, Subject } from "rxjs";
+import { Subject } from 'rxjs';
 
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { ActivatedRoute, Router, Params } from "@angular/router";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { RoutingComponent } from "./routing.component";
+import { RoutingComponent } from './routing.component';
 
 class RouterStub {
 	navigate(path: any[]) {}
@@ -28,6 +30,7 @@ describe("RoutingComponent", () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			declarations: [RoutingComponent],
+			imports: [ RouterTestingModule ],
 			providers: [
 				{ provide: Router, useClass: RouterStub },
 				{ provide: ActivatedRoute, useClass: ActivatedRouteStub }
@@ -57,8 +60,14 @@ describe("RoutingComponent", () => {
 		let route: ActivatedRouteStub = TestBed.get(ActivatedRoute);
 		let spy = spyOn(router, "navigate");
 
-		route.push({id: "0"});
+		route.push({ id: "0" });
 
 		expect(spy).toHaveBeenCalledWith(["/404"]);
+	});
+
+	it("should have router-outlet directive", () => {
+		let de = fixture.debugElement.query(By.directive(RouterOutlet));
+
+		expect(de).not.toBeNull();
 	});
 });
