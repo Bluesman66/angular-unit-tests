@@ -1,11 +1,12 @@
-import { Subject } from 'rxjs';
+import { Subject } from "rxjs";
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
+import { ActivatedRoute, Params, Router, RouterOutlet } from "@angular/router";
+import { RouterTestingModule } from "@angular/router/testing";
 
-import { RoutingComponent } from './routing.component';
+import { RoutingComponent } from "./routing.component";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 class RouterStub {
 	navigate(path: any[]) {}
@@ -30,11 +31,12 @@ describe("RoutingComponent", () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			declarations: [RoutingComponent],
-			imports: [ RouterTestingModule ],
+			imports: [RouterTestingModule],
 			providers: [
 				{ provide: Router, useClass: RouterStub },
 				{ provide: ActivatedRoute, useClass: ActivatedRouteStub }
-			]
+			],
+			schemas: [NO_ERRORS_SCHEMA]
 		});
 
 		fixture = TestBed.createComponent(RoutingComponent);

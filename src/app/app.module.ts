@@ -7,6 +7,7 @@ import { CounterComponent } from './counter/counter.component';
 import { TestCounterComponent } from './test-counter/test-counter.component';
 import { RoutingComponent } from './routing/routing.component';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
 	declarations: [
@@ -14,7 +15,8 @@ import { RouterOutlet } from '@angular/router';
     CounterComponent,
     TestCounterComponent,
     RoutingComponent,
-    RouterOutlet
+    RouterOutlet,
+    NavbarComponent
   ],
 	imports: [
     BrowserModule,
