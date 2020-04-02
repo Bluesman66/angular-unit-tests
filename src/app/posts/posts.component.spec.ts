@@ -1,7 +1,7 @@
 import { EMPTY, of, throwError } from "rxjs";
 
 import { HttpClientModule } from "@angular/common/http";
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
 
 import { PostsComponent } from "./posts.component";
 import { PostsService } from "./posts.service";
@@ -15,7 +15,7 @@ describe("PostsComponent: unit tests", () => {
 		component = new PostsComponent(service);
 	});
 
-	it("should call the fetch inside ngOnInit", () => {
+	xit("should call the fetch inside ngOnInit", () => {
 		const spy = spyOn(service, "fetch").and.callFake(() => {
 			return EMPTY;
 		});
@@ -25,7 +25,7 @@ describe("PostsComponent: unit tests", () => {
 		expect(spy).toHaveBeenCalled();
 	});
 
-	it("should update posts length after ngOnInit", () => {
+	xit("should update posts length after ngOnInit", () => {
 		const posts = [1, 2, 3, 4];
 		spyOn(service, "fetch").and.returnValue(of(posts));
 
@@ -90,7 +90,7 @@ describe("PostComponent: integration tests", () => {
 		service = TestBed.get(PostsService);
 	});
 
-	it("should fetch posts on ngOnInit", () => {
+	xit("should fetch posts on ngOnInit", () => {
 		const posts = [1, 2, 3];
 		spyOn(service, "fetch").and.returnValue(of(posts));
 
@@ -98,4 +98,25 @@ describe("PostComponent: integration tests", () => {
 
 		expect(component.posts).toEqual(posts);
 	});
+
+	it("should fetch posts on ngOnInit (promise)", async(() => {
+		const posts = [1, 2, 3];
+		spyOn(service, "fetchPromise").and.returnValue(Promise.resolve(posts));
+
+		fixture.detectChanges();
+		fixture.whenStable().then(() => {
+			expect(component.posts.length).toBe(posts.length);
+		});
+	}));
+
+	it("should fetch posts on ngOnInit (promise) ver.2", fakeAsync(() => {
+		const posts = [1, 2, 3];
+		spyOn(service, "fetchPromise").and.returnValue(Promise.resolve(posts));
+
+		fixture.detectChanges();
+
+		tick();
+
+		expect(component.posts.length).toBe(posts.length);
+	}));
 });
